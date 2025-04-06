@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Aprovar Reservas</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Professor</th>
+            <th>Sala</th>
+            <th>Dia</th>
+            <th>Turno</th>
+            <th>Aprovar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+        <tr>
+            <td>{{ reservation.user.username }}</td>
+            <td>{{ reservation.room.name }}</td>
+            <td>{{ reservation.day_of_week }}</td>
+            <td>{{ reservation.shift }}</td>
+            <td>
+                <form method="post">
+                    <button class="btn btn-success">Aprovar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

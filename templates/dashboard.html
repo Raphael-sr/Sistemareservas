@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-center">Reservas - {{ selected_day }} ({{ shift }})</h1>
+
+<!-- Botões para alternar turnos -->
+<div class="text-center mb-3">
+    <div class="btn-group" role="group" aria-label="Turnos">
+        <a href="{{ url_for('dashboard', shift='Matutino', day=selected_day) }}" class="btn {% if shift == 'Matutino' %}btn-primary{% else %}btn-outline-primary{% endif %}">
+            Matutino
+        </a>
+        <a href="{{ url_for('dashboard', shift='Vespertino', day=selected_day) }}" class="btn {% if shift == 'Vespertino' %}btn-secondary{% else %}btn-outline-secondary{% endif %}">
+            Vespertino
+        </a>
+        <a href="{{ url_for('dashboard', shift='Noturno', day=selected_day) }}" class="btn {% if shift == 'Noturno' %}btn-dark{% else %}btn-outline-dark{% endif %}">
+            Noturno
+        </a>
+    </div>
+</div>
+
+<!-- Botões para alternar dias da semana -->
+<div class="text-center mb-4">
+    <div class="btn-group" role="group" aria-label="Dias da Semana">
+        {% for day in days_of_week %}
+        <a href="{{ url_for('dashboard', shift=shift, day=day) }}" class="btn {% if day == selected_day %}btn-success{% else %}btn-outline-success{% endif %}">
+            {{ day }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Tabela de Reservas -->
+<div class="table-responsive">
+    <table class="table table-bordered text-center">
+        <thead class="thead-light">
+            <tr>
+                <th>Professor</th>
+                <th>Sala</th>
+                <th>Dia</th>
+                <th>Turno</th>
+                <th>Turma</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.user.full_name }}</td>
+                <td>{{ reservation.room.name }}</td>
+                <td>{{ reservation.day_of_week }}</td>
+                <td>{{ reservation.shift }}</td>
+                <td>{{ reservation.class_group.name if reservation.class_group else 'N/A' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-center">Gerenciar Usuários, Salas e Turmas</h1>
+
+<div class="container mt-4">
+    <!-- Gerenciar Usuários -->
+    <h2>Usuários</h2>
+    <form method="post" action="{{ url_for('manage') }}">
+        <div class="mb-3">
+            <input type="text" name="full_name" placeholder="Digite o nome completo do usuário" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar Usuário</button>
+    </form>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Usuário</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.full_name }}</td>
+                <td>{{ user.username }}</td>
+                <td>
+                    <form action="{{ url_for('delete_user', user_id=user.id) }}" method="post" style="display:inline;">
+                        <button class="btn btn-danger btn-sm" type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Gerenciar Salas -->
+    <h2>Salas</h2>
+    <form method="post" action="{{ url_for('manage') }}">
+        <div class="mb-3">
+            <input type="text" name="room_name" placeholder="Digite o nome da sala" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Adicionar Sala</button>
+    </form>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+            <tr>
+                <td>{{ room.name }}</td>
+                <td>
+                    <form action="{{ url_for('delete_room', room_id=room.id) }}" method="post" style="display:inline;">
+                        <button class="btn btn-danger btn-sm" type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Gerenciar Turmas -->
+    <h2>Turmas</h2>
+    <form method="post" action="{{ url_for('manage') }}">
+        <div class="mb-3">
+            <input type="text" name="class_name" placeholder="Digite o nome da turma" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Adicionar Turma</button>
+    </form>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for class_group in class_groups %}
+            <tr>
+                <td>{{ class_group.name }}</td>
+                <td>
+                    <form action="{{ url_for('delete_class', class_id=class_group.id) }}" method="post" style="display:inline;">
+                        <button class="btn btn-danger btn-sm" type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

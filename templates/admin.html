@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-center">Administração</h1>
+
+<hr>
+
+<!-- Aprovação de Reservas -->
+<h2>Aprovação de Reservas</h2>
+<table class="table table-bordered text-center">
+    <thead>
+        <tr>
+            <th>Professor</th>
+            <th>Sala</th>
+            <th>Dia</th>
+            <th>Turno</th>
+            <th>Turma</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+        <tr>
+            <td>{{ reservation.user.full_name }}</td>
+            <td>{{ reservation.room.name }}</td>
+            <td>{{ reservation.day_of_week }}</td>
+            <td>{{ reservation.shift }}</td>
+            <td>{{ reservation.class_group.name if reservation.class_group else 'N/A' }}</td>
+            <td>
+                <form method="post" action="{{ url_for('admin') }}">
+                    <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+                    <button type="submit" class="btn btn-success">Aprovar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

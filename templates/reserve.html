@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-center">Fazer Reserva</h1>
+<div class="container mt-4">
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            <label for="day_of_week" class="form-label">{{ form.day_of_week.label }}</label>
+            {{ form.day_of_week(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            <label for="shift" class="form-label">{{ form.shift.label }}</label>
+            {{ form.shift(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            <label for="room" class="form-label">{{ form.room.label }}</label>
+            {{ form.room(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            <label for="class_group" class="form-label">{{ form.class_group.label }}</label>
+            {{ form.class_group(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            <label for="observation" class="form-label">Observação (opcional)</label>
+            <textarea name="observation" class="form-control" rows="3" placeholder="Adicione observações aqui..."></textarea>
+        </div>
+        <div class="d-grid">
+            {{ form.submit(class="btn btn-primary btn-block") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
